@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+
     }
 
     @Override
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
        if (item.getItemId() == R.id.mammals_menu_item) {
             valikko = 1;
+            stopPlaying();
             ((ImageView) findViewById(R.id.image_1)).setImageResource(R.drawable.bear);
             ((ImageView) findViewById(R.id.image_2)).setImageResource(R.drawable.wolf);
             ((ImageView) findViewById(R.id.image_3)).setImageResource(R.drawable.elephant);
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
        else if (item.getItemId() == R.id.birds_menu_item) {
             valikko = 2;
+            stopPlaying();
             ((ImageView) findViewById(R.id.image_1)).setImageResource(R.drawable.huuhkaja);
             ((ImageView) findViewById(R.id.image_2)).setImageResource(R.drawable.peippo);
             ((ImageView) findViewById(R.id.image_3)).setImageResource(R.drawable.peukaloinen);
@@ -64,31 +67,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+    MediaPlayer mediaPlayer;
 
     @Override
     public void onClick(View v) {
         int ID = v.getId();
-        MediaPlayer mediaPlayer;
 
 
         if(valikko == 1){                       //jos ollaan nisäkäsmenussa
             if(ID == R.id.image_1) {
+                stopPlaying();
                 mediaPlayer = MediaPlayer.create(this, R.raw.bear);
                 mediaPlayer.start();
 
             }
             if(ID == R.id.image_2) {
+                stopPlaying();
                 mediaPlayer = MediaPlayer.create(this, R.raw.wolf);
                 mediaPlayer.start();
 
             }
             if(ID == R.id.image_3)
             {
+                stopPlaying();
                 mediaPlayer = MediaPlayer.create(this, R.raw.elephant);
                 mediaPlayer.start();
 
             }
             if(ID == R.id.image_4) {
+                stopPlaying();
                 mediaPlayer = MediaPlayer.create(this, R.raw.lamb);
                 mediaPlayer.start();
             }
@@ -97,28 +104,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(valikko == 2) {                  //jos ollaan lintumenussa
             if(ID == R.id.image_1) {
+                stopPlaying();
                 mediaPlayer = MediaPlayer.create(this, R.raw.huuhkaja_norther_eagle_owl);
                 mediaPlayer.start();
 
             }
             if(ID == R.id.image_2) {
-
+                stopPlaying();
                 mediaPlayer = MediaPlayer.create(this, R.raw.peippo_chaffinch);
                 mediaPlayer.start();
 
             }
             if(ID == R.id.image_3)
             {
+                stopPlaying();
                 mediaPlayer = MediaPlayer.create(this, R.raw.peukaloinen_wren);
                 mediaPlayer.start();
 
             }
             if(ID == R.id.image_4) {
+                stopPlaying();
                 mediaPlayer = MediaPlayer.create(this, R.raw.punatulkku_northern_bullfinch);
                 mediaPlayer.start();
 
             }
         }
+
+
     }
+    protected void stopPlaying(){
+        // Jos mediaPlayer ei ole null, pysäytetään se
+        if(mediaPlayer!=null){
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
+
 
 }
